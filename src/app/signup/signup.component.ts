@@ -16,23 +16,19 @@ export class SignupComponent implements OnInit {
   error: any;
 
   constructor(public afAuth: AngularFireAuth,private router: Router) {
-
   }
 
   onSubmit(formData) {
-    // if(formData.valid) {
-    //   console.log(formData.value);
-    //   this.af.auth.createUser({
-    //     email: formData.value.email,
-    //     password: formData.value.password
-    //   }).then(
-    //     (success) => {
-    //     this.router.navigate(['/members'])
-    //   }).catch(
-    //     (err) => {
-    //     this.error = err;
-    //   })
-    // }
+    if(formData.valid) {
+      console.log(formData.value);
+      this.afAuth.auth
+        .createUserWithEmailAndPassword(formData.value.email,formData.value.password)
+        .then((success) => {
+          this.router.navigate(['/members'])
+        }).catch((err) => {
+          this.error = err;
+        })
+    }
   }
 
   ngOnInit() {
